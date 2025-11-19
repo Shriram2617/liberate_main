@@ -1,0 +1,4 @@
+Liberate is a smart, user-friendly bail reckoner designed to simplify and accelerate the bail process for individuals, lawyers, and families. 
+In India, navigating bail procedures is often complex, time-consuming, and overwhelming due to scattered information, unclear eligibility criteria, and procedural delays.
+Liberate bridges this gap by providing instant bail eligibility checks, required document lists, case status tracking, and lawyer connect features — all in one platform. 
+Using AI-powered legal data analysis, the app offers personalized guidance tailored to case type and jurisdiction, ensuring that every citizen can exercise their right to bail without unnecessary hurdles. With Liberate, justice becomes more accessible, transparent, and timely — because freedom is a right, not a privilege.
