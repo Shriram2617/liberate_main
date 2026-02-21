@@ -17,6 +17,7 @@ const PrisonerPortal: React.FC<PrisonerPortalProps> = ({ language, onBack }) => 
   const [notifications, setNotifications] = useState<any[]>([]);
   const [submittedApplicationId, setSubmittedApplicationId] = useState<number | null>(null);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [selectedLawyerDetails, setSelectedLawyerDetails] = useState<any>(null);
 
   React.useEffect(() => {
     // Load notifications
@@ -579,28 +580,6 @@ Note: This is a draft bail petition. Specific details from the FIR and the accus
                 )}
               </div>
 
-              <div className="mb-8">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.sections}</h3>
-                <div className="space-y-3">
-                  {analysis.offenses.map((offense: any, index: number) => (
-                    <div key={index} className="border border-gray-200 p-4 rounded-lg">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-semibold text-gray-900">
-                          Section {offense.section} - {offense.name}
-                        </h4>
-                        <span className={`px-2 py-1 rounded text-sm ${
-                          offense.bailable 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-red-100 text-red-800'
-                        }`}>
-                          {offense.bailable ? 'Bailable' : 'Non-bailable'}
-                        </span>
-                      </div>
-                      <p className="text-gray-600">Maximum Punishment: {offense.punishment}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* Bail Application Form Display */}
               {!analysis.hasNonBailableOffense && analysis.bailScore >= 75 && (
@@ -757,25 +736,85 @@ Note: This is a draft bail petition. Specific details from the FIR and the accus
                     <div key={index} className="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
                       <div className="flex items-center space-x-3 mb-3">
                         <Users className="w-8 h-8 text-blue-600" />
-                        <div>
+                        <div className="flex-1">
                           <h3 className="font-semibold text-gray-900">{lawyer.name}</h3>
                           <p className="text-sm text-blue-600">{lawyer.type}</p>
                         </div>
                       </div>
                       <div className="space-y-2 mb-3">
-                        <p className="text-gray-700"><span className="font-medium">Experience:</span> {lawyer.experience}</p>
-                        <p className="text-gray-700"><span className="font-medium">Specialization:</span> {lawyer.specialization}</p>
-                        <p className="text-gray-700"><span className="font-medium">Court:</span> {lawyer.location}</p>
-                        <p className="text-sm text-blue-600 font-medium">{lawyer.phone}</p>
+                        <p className="text-sm text-gray-700"><span className="font-medium">Experience:</span> {lawyer.experience}</p>
+                        <p className="text-sm text-gray-700"><span className="font-medium">Spec:</span> {lawyer.specialization}</p>
                       </div>
-                      <button className="w-full mt-3 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors">
-                        Contact
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => setSelectedLawyerDetails(lawyer)}
+                          className="flex-1 text-sm bg-gray-100 text-gray-900 py-2 rounded hover:bg-gray-200 transition-colors font-medium"
+                        >
+                          View More
+                        </button>
+                        <button className="flex-1 text-sm bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors font-medium">
+                          Contact
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Lawyer Details Modal */}
+        {selectedLawyerDetails && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-in fade-in duration-300">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Lawyer Details</h2>
+                <button
+                  onClick={() => setSelectedLawyerDetails(null)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 pb-4 border-b">
+                  <Users className="w-10 h-10 text-blue-600" />
+                  <div>
+                    <h3 className="font-bold text-gray-900">{selectedLawyerDetails.name}</h3>
+                    <p className="text-sm text-blue-600">{selectedLawyerDetails.type}</p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-gray-700 mb-1">Experience</p>
+                  <p className="text-gray-900">{selectedLawyerDetails.experience}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-gray-700 mb-1">Specialization</p>
+                  <p className="text-gray-900">{selectedLawyerDetails.specialization}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-gray-700 mb-1">Court</p>
+                  <p className="text-gray-900">{selectedLawyerDetails.location}</p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-semibold text-gray-700 mb-1">Phone</p>
+                  <p className="text-blue-600 font-medium">{selectedLawyerDetails.phone}</p>
+                </div>
+
+                <button
+                  onClick={() => setSelectedLawyerDetails(null)}
+                  className="w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
