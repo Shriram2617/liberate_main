@@ -18,6 +18,7 @@ const PrisonerPortal: React.FC<PrisonerPortalProps> = ({ language, onBack }) => 
   const [submittedApplicationId, setSubmittedApplicationId] = useState<number | null>(null);
   const [showNotifications, setShowNotifications] = useState(false);
   const [selectedLawyerDetails, setSelectedLawyerDetails] = useState<any>(null);
+  const [showMoreSections, setShowMoreSections] = useState(false);
 
   React.useEffect(() => {
     // Load notifications
@@ -564,6 +565,43 @@ Note: This is a draft bail petition. Specific details from the FIR and the accus
                     <AlertCircle className="w-6 h-6 text-red-600 mt-1" />
                     <p className="text-red-700 font-medium">{t.lowChance}</p>
                   </div>
+                )}
+              </div>
+
+              <div className="bg-white border border-gray-200 p-6 rounded-xl mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.sections}</h3>
+                <div className="space-y-3">
+                  {analysis.offenses.slice(0, showMoreSections ? analysis.offenses.length : 2).map((offense: any, index: number) => (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-3 mb-2">
+                            <span className="bg-blue-600 text-white text-sm font-bold px-3 py-1 rounded-full">Section {offense.section}</span>
+                            {offense.bailable && (
+                              <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">Bailable</span>
+                            )}
+                            {!offense.bailable && (
+                              <span className="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded">Non-Bailable</span>
+                            )}
+                          </div>
+                          <p className="font-medium text-gray-900 mb-1">{offense.name}</p>
+                          <p className="text-sm text-gray-600 mb-2">{offense.punishment}</p>
+                          <div className="flex flex-wrap gap-2 text-xs text-gray-600">
+                            <span className="bg-blue-50 px-2 py-1 rounded">Cognizable: {offense.cognizable ? 'Yes' : 'No'}</span>
+                            <span className="bg-blue-50 px-2 py-1 rounded">Triable by: {offense.triableBy}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {analysis.offenses.length > 2 && (
+                  <button
+                    onClick={() => setShowMoreSections(!showMoreSections)}
+                    className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  >
+                    {showMoreSections ? 'Show Less' : `View More (${analysis.offenses.length - 2} more)`}
+                  </button>
                 )}
               </div>
 
