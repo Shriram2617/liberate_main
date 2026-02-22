@@ -18,7 +18,6 @@ const PrisonerPortal: React.FC<PrisonerPortalProps> = ({ language, onBack }) => 
   const [submittedApplicationId, setSubmittedApplicationId] = useState<number | null>(null);
   const [showNotifications, setShowNotifications] = useState(false);
   const [selectedLawyerDetails, setSelectedLawyerDetails] = useState<any>(null);
-  const [showMoreSections, setShowMoreSections] = useState(false);
 
   React.useEffect(() => {
     // Load notifications
@@ -571,7 +570,7 @@ Note: This is a draft bail petition. Specific details from the FIR and the accus
               <div className="bg-white border border-gray-200 p-6 rounded-xl mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.sections}</h3>
                 <div className="space-y-3">
-                  {analysis.offenses.slice(0, showMoreSections ? analysis.offenses.length : 2).map((offense: any, index: number) => (
+                  {analysis.offenses.map((offense: any, index: number) => (
                     <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -595,14 +594,6 @@ Note: This is a draft bail petition. Specific details from the FIR and the accus
                     </div>
                   ))}
                 </div>
-                {analysis.offenses.length > 2 && (
-                  <button
-                    onClick={() => setShowMoreSections(!showMoreSections)}
-                    className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-                  >
-                    {showMoreSections ? 'Show Less' : `View More (${analysis.offenses.length - 2} more)`}
-                  </button>
-                )}
               </div>
 
 
@@ -673,18 +664,30 @@ Note: This is a draft bail petition. Specific details from the FIR and the accus
                     </button>
                     
                     <div className="flex-1">
-                      <select
-                        value={selectedLawyer}
-                        onChange={(e) => setSelectedLawyer(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent mb-2"
-                      >
-                        <option value="">{t.selectLawyer}</option>
-                        {lawyers.map((lawyer, index) => (
-                          <option key={index} value={lawyer.name}>
-                            {lawyer.name} - {lawyer.specialization}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="flex gap-2 mb-2">
+                        <select
+                          value={selectedLawyer}
+                          onChange={(e) => setSelectedLawyer(e.target.value)}
+                          className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                        >
+                          <option value="">{t.selectLawyer}</option>
+                          {lawyers.map((lawyer, index) => (
+                            <option key={index} value={lawyer.name}>
+                              {lawyer.name} - {lawyer.specialization}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          onClick={() => {
+                            const selectedLawyerObj = lawyers.find(l => l.name === selectedLawyer);
+                            if (selectedLawyerObj) setSelectedLawyerDetails(selectedLawyerObj);
+                          }}
+                          disabled={!selectedLawyer}
+                          className="bg-gray-600 text-white px-4 py-3 rounded-lg font-semibold hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                          View More
+                        </button>
+                      </div>
                       
                       {submissionSuccess ? (
                         <div className="bg-green-100 text-green-800 px-4 py-3 rounded-lg font-semibold">
