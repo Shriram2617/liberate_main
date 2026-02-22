@@ -551,19 +551,6 @@ Note: This is a draft bail petition. Specific details from the FIR and the accus
             <div className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Analysis Results</h2>
               
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-gradient-to-r from-green-400 to-green-600 p-6 rounded-xl text-white">
-                  <BarChart3 className="w-8 h-8 mb-2" />
-                  <h3 className="text-xl font-bold">{t.bailScore}</h3>
-                  <p className="text-3xl font-bold">{analysis.bailScore}%</p>
-                </div>
-                
-                <div className="bg-gradient-to-r from-orange-400 to-red-600 p-6 rounded-xl text-white">
-                  <AlertCircle className="w-8 h-8 mb-2" />
-                  <h3 className="text-xl font-bold">{t.riskScore}</h3>
-                  <p className="text-3xl font-bold">{analysis.riskScore}%</p>
-                </div>
-              </div>
 
               <div className="bg-gray-50 p-6 rounded-xl mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">{t.recommendation}</h3>
