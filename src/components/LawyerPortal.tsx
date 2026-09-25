@@ -67,7 +67,6 @@ const LawyerPortal: React.FC<LawyerPortalProps> = ({ language, onBack, onLogin }
       type: 'Type',
       bailApplications: 'Bail Applications',
       viewApplications: 'View Applications',
-      availableLawyers: 'Available Lawyers',
       noApplications: 'No bail applications submitted yet',
       pending: 'Pending Review',
       reviewed: 'Reviewed',
@@ -108,7 +107,6 @@ const LawyerPortal: React.FC<LawyerPortalProps> = ({ language, onBack, onLogin }
       type: 'प्रकार',
       bailApplications: 'जमानत आवेदन',
       viewApplications: 'आवेदन देखें',
-      availableLawyers: 'उपलब्ध वकील',
       noApplications: 'अभी तक कोई जमानत आवेदन जमा नहीं किया गया',
       pending: 'समीक्षा लंबित',
       reviewed: 'समीक्षा की गई',
@@ -149,7 +147,6 @@ const LawyerPortal: React.FC<LawyerPortalProps> = ({ language, onBack, onLogin }
       type: 'வகை',
       bailApplications: 'ஜாமீன் விண்ணப்பங்கள்',
       viewApplications: 'விண்ணப்பங்களைப் பார்க்கவும்',
-      availableLawyers: 'கிடைக்கும் வழக்கறிஞர்கள்',
       noApplications: 'இன்னும் ஜாமீன் விண்ணப்பங்கள் சமர்ப்பிக்கப்படவில்லை',
       pending: 'மதிப்பாய்வு நிலுவையில்',
       reviewed: 'மதிப்பாய்வு செய்யப்பட்டது',
@@ -264,9 +261,10 @@ const LawyerPortal: React.FC<LawyerPortalProps> = ({ language, onBack, onLogin }
     
     // Store notification for user
     const notifications = JSON.parse(localStorage.getItem('userNotifications') || '[]');
+    const lawyerPhone = '+91 98765 43211'; // Priya Sharma's phone
     notifications.push({
       id: Date.now(),
-      message: action === 'accept' ? t.applicationAccepted : t.applicationRejected,
+      message: action === 'accept' ? `${t.applicationAccepted} by Adv. Priya Sharma. Contact: ${lawyerPhone}` : t.applicationRejected,
       timestamp: new Date().toISOString(),
       type: action === 'accept' ? 'success' : 'error'
     });

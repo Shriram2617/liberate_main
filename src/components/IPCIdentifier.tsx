@@ -438,6 +438,39 @@ const IPCIdentifier: React.FC<IPCIdentifierProps> = ({ language }) => {
         triableBy: 'Any Magistrate',
         punishment: 'Up to 6 months, or fine up to ₹1,000, or both'
       },
+      '337': {
+        act: 'Indian Penal Code (IPC)',
+        title: 'Causing hurt by act endangering life or personal safety of others',
+        description: 'Whoever causes hurt to any person by doing any act so rashly or negligently as to endanger human life, or the personal safety of others.',
+        category: 'Of Offences Affecting the Human Body',
+        bailable: true,
+        cognizable: true,
+        compoundable: 'Compoundable',
+        triableBy: 'Any Magistrate',
+        punishment: 'Up to 6 months, or fine up to ₹500, or both'
+      },
+      '338': {
+        act: 'Indian Penal Code (IPC)',
+        title: 'Causing grievous hurt by act endangering life or personal safety of others',
+        description: 'Whoever causes grievous hurt to any person by doing any act so rashly or negligently as to endanger human life, or the personal safety of others.',
+        category: 'Of Offences Affecting the Human Body',
+        bailable: true,
+        cognizable: true,
+        compoundable: 'Compoundable',
+        triableBy: 'Any Magistrate',
+        punishment: 'Up to 2 years, or fine up to ₹1,000, or both'
+      },
+      '304A': {
+        act: 'Indian Penal Code (IPC)',
+        title: 'Causing death by negligence',
+        description: 'Whoever causes the death of any person by doing any rash or negligent act not amounting to culpable homicide.',
+        category: 'Of Offences Affecting the Human Body',
+        bailable: true,
+        cognizable: true,
+        compoundable: 'Compoundable',
+        triableBy: 'Magistrate of the first class',
+        punishment: 'Up to 2 years, or fine, or both'
+      },
       '294': {
         act: 'Indian Penal Code (IPC)',
         title: 'Obscene acts and songs',
@@ -592,6 +625,17 @@ const IPCIdentifier: React.FC<IPCIdentifierProps> = ({ language }) => {
         triableBy: 'Any Magistrate',
         punishment: 'Up to 2 years, or fine, or both'
       },
+      '406': {
+        act: 'Indian Penal Code (IPC)',
+        title: 'Criminal Breach of Trust',
+        description: 'Whoever, being in any manner entrusted with property, or with any dominion over property, dishonestly misappropriates or converts to his own use that property, or dishonestly uses or disposes of that property in violation of any direction of law prescribing the mode in which such trust is to be discharged, or of any legal contract, express or implied, which he has made touching the discharge of such trust, or wilfully suffers any other person so to do.',
+        category: 'Of Offences Against Property',
+        bailable: false,
+        cognizable: true,
+        compoundable: 'Compoundable with court\'s permission',
+        triableBy: 'Magistrate of the first class',
+        punishment: 'Up to 3 years, or fine, or both'
+      },
       '510': {
         act: 'Indian Penal Code (IPC)',
         title: 'Misconduct in public by a drunken person',
@@ -609,10 +653,13 @@ const IPCIdentifier: React.FC<IPCIdentifierProps> = ({ language }) => {
       'theft': ['379'],
       'cheating': ['420'],
       'fraud': ['420'],
+      'breach of trust': ['406'],
       'rape': ['376'],
       'assault': ['354'],
       'trespass': ['447', '448'],
       'driving': ['279'],
+      'rash': ['279'],
+      'negligence': ['279', '337', '338', '304A'],
       'insult': ['504'],
       'drunk': ['510'],
       'attempt murder': ['307'],

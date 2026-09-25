@@ -133,19 +133,21 @@ const LawyerDashboard: React.FC<LawyerDashboardProps> = ({ language, lawyerData,
     
     const newNotification = {
       id: Date.now(),
-      message: action === 'accept' ? t.applicationAccepted : t.applicationRejected,
+      message: action === 'accept' 
+        ? `${t.applicationAccepted} by ${lawyerData.name}. Contact: ${lawyerData.phone}` 
+        : `${t.applicationRejected} by ${lawyerData.name}`,
       timestamp: new Date().toISOString(),
       type: action === 'accept' ? 'success' : 'error'
     };
-    
+
     const timelineUpdate = {
       id: Date.now(),
       applicationId: applicationId,
       status: action === 'accept' ? 'accepted' : 'rejected',
       timestamp: new Date().toISOString(),
       lawyerName: lawyerData.name,
-      message: action === 'accept' 
-        ? `Your bail application has been accepted by ${lawyerData.name}. Next step: Court hearing scheduled.`
+      message: action === 'accept'
+        ? `Your bail application has been accepted by ${lawyerData.name}. Contact: ${lawyerData.phone}. Next step: Court hearing scheduled.`
         : `Your bail application has been rejected by ${lawyerData.name}. You may consult another lawyer or approach higher court.`
     };
     
