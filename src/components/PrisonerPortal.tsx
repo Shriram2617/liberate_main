@@ -522,21 +522,62 @@ const PrisonerPortal: React.FC<PrisonerPortalProps> = ({ language, onBack }) => 
     return false;
   };
 
-  const generateBailApplication = () => {
-    const bailContent = `BAIL PETITION
+  const bailFormContent = `BAIL PETITION
 
 In the Court of [Name of Court]
 
 Case No: [Insert Case Number]
 
-Petitioner: [Name of Accused]
+Petitioner: [Name of Accused], son/daughter of [Father's Name], resident of [Address of Accused]
+
 Versus
+
 State of Tamil Nadu
 
 Bail Petition under Section 439 Cr.P.C.
 
-...`;
-    const blob = new Blob([bailContent], { type: 'text/plain' });
+Most Respectfully Sheweth:
+
+1. Offenses: The petitioner is accused in FIR No. 229/2023, registered at Kilpauk Police Station, Chennai, on 12-10-2023. The alleged offence occurred on 11-10-2023 at approximately 22:00 hours at Halls Road near Vijaya Towers Medplus Pharmacy, Kilpauk, Chennai-10. The complainant, Mukesh Ananth, alleges that the accused committed the offences detailed below.
+
+2. Accused Background: The petitioner, [Name of Accused], is [age] years old, and [Educational Qualification/Profession]. [Add any other relevant background information, such as family details, employment history, etc. If the accused is a first-time offender, this should be highlighted.]
+
+3. Legal Sections Applicable: The petitioner is charged under the following sections of the Indian Penal Code, 1860:
+
+Section 294(b) IPC: This section pertains to obscene acts and songs in public. A conviction under this section carries a punishment of imprisonment for up to three months, or a fine, or both. The FIR suggests the petitioner engaged in obscene acts or sang obscene songs in a public place.
+
+Section 323 IPC: This section deals with voluntarily causing hurt. Punishment under this section is imprisonment for up to one year, or a fine up to 1,000, or both. The FIR suggests the petitioner caused hurt to the complainant.
+
+Section 447 IPC: This section addresses criminal trespass. The punishment for this offence is imprisonment up to three months, or a fine up to 500, or both. The FIR implies the petitioner trespassed onto the complainant's property or a place where he had no right to be.
+
+4. Court Jurisdiction: The Court of [Name of Court] has jurisdiction to hear this bail petition as the alleged offenses took place within its territorial jurisdiction.
+
+5. Additional Factors:
+
+Arrest/Remand Details: [Mention the date of arrest and whether remanded to judicial custody. If remanded, specify the date of remand].
+
+Involvement of the Accused: The FIR names the petitioner as an accused.
+
+Claims of Innocence: [If the accused claims innocence, state the grounds for this claim. Mention any alibi or contradictory evidence. If there is any prior enmity between the accused and complainant, mention it here.]
+
+Bail Conditions: The petitioner is willing to abide by any conditions imposed by the Honourable Court to secure bail, including furnishing sureties, regular attendance in court, and refraining from any contact with the complainant or witnesses.
+
+Previous Cases: [Mention if the petitioner has any prior criminal record. If this is a first-time offense, this must be emphasized.]
+
+Therefore, it is most humbly prayed that:
+
+Considering the aforementioned facts and circumstances, this Honourable Court may be pleased to grant bail to the petitioner under Section 439 Cr.P.C. The petitioner undertakes to cooperate fully with the investigation and trial proceedings and will abide by all conditions imposed by the Court.
+
+Dated: [Date]
+
+Petitioner's Signature
+
+Advocate's Signature
+
+Note: This is a draft bail petition. Specific details from the FIR and the accused's case must be meticulously filled in. Legal advice from a qualified lawyer is crucial before filing the petition. The lawyer should investigate the evidence and the merits of the case before proceeding. This template is for informational purposes only and is not a substitute for legal representation.`;
+
+  const generateBailApplication = () => {
+    const blob = new Blob([bailFormContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -1237,6 +1278,13 @@ Bail Petition under Section 439 Cr.P.C.
       {firAnalysis && !firAnalysis.hasNonBailableOffense && firAnalysis.bailScore >= 75 && (
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.bailForm}</h2>
+
+          {/* Visible Bail Petition Content */}
+          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6 max-h-[600px] overflow-y-auto">
+            <pre className="text-sm text-gray-800 whitespace-pre-wrap font-mono leading-relaxed">
+              {bailFormContent}
+            </pre>
+          </div>
 
           <div className="flex flex-col md:flex-row gap-4">
             <button
